@@ -3,6 +3,7 @@ import cors from 'cors';
 import pino from 'pino-http';
 import dotenv from 'dotenv';
 import { getAllContacts, getContactById } from './services/contacts.js';
+// import { Contact } from './db/models/contacts.js';
 
 dotenv.config();
 const PORT = Number(process.env.PORT) || 3000;
@@ -20,10 +21,18 @@ export const setupServer = () => {
     }),
   );
 
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Hello, World!',
+    });
+  });
+
   app.get('/contacts', async (req, res) => {
-    const contacts = await getAllContacts;
-    res.status(200).json({
-      message: 'Successfully found contacts!',
+    const contacts = await getAllContacts();
+    // const contacts = await Contact.find();
+    res.send({
+      status: 200,
+      message: `Successfully found contacts!`,
       data: contacts,
     });
   });
@@ -37,10 +46,15 @@ export const setupServer = () => {
         message: 'Contact not found',
       });
     }
-    res.status(200).json({
+    res.send({
+      status: 200,
       data: contact,
       message: `Successfully found contact with id ${contactId}`,
     });
+    // res.status(200).json({
+    //   data: contact,
+    //   message: `Successfully found contact with id ${contactId}`,
+    // });
   });
 
   app.use('*', (req, res, next) => {
