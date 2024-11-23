@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
 import dotenv from 'dotenv';
-import { getAllContacts, getContactById } from './services/contacts';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 dotenv.config();
 const PORT = Number(process.env.PORT) || 3000;
