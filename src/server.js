@@ -6,9 +6,10 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
+import { getEnvVar } from './utils/getEnvVar.js';
 
 dotenv.config();
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(getEnvVar('PORT', 3000));
 
 export const setupServer = () => {
   const app = express();
