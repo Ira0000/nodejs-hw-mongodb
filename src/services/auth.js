@@ -120,11 +120,44 @@ export const requestResetPassword = async (email) => {
     name: user.name,
     link: `${appDomain}/reset-password?token=${resetToken}`,
   });
+  try {
+    await sendEmail({
+      from: getEnvVar('SMTP_FROM'),
+      to: user.email,
+      subject: 'Reset your password',
+      html,
+    });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw createHttpError(
+      500,
+      'Failed to send the email, please try again later.',
+    );
+  }
+};
 
-  await sendEmail({
-    from: getEnvVar('SMTP_FROM'),
-    to: user.email,
-    subject: 'Reset your password',
-    html,
-  });
+export const resetPassword = async (newPassword, token) => {
+  try {
+    const decoded = jwt.verify(token, getEnvVar('JWT_SECRET'));
+    const user = await UsersCollection.findOne({
+      _id: decoded.sub,
+      email: decoded.email,
+    });
+    if (user === null) {
+      throw createHttpError(404, 'User not found');
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await UsersCollection.findByIdAndUpdate(user._id, {
+      password: hashedPassword,
+    });
+  } catch (error) {
+    if (
+      error.name === 'JsonWebTokenError' ||
+      error.name === 'TokenExpiredError'
+    ) {
+      throw createHttpError(401, 'Token is expired or invalid.');
+    }
+    throw error;
+  }
 };
