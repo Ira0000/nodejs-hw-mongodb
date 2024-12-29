@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+import fs from 'node:fs/promises';
 import {
   createContact,
   deleteContact,
@@ -9,6 +10,8 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -51,9 +54,23 @@ export const getContactsByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
+  const photo = req.file;
+  let photoUrl = null;
+
+  if (photo) {
+    // photoUrl = await saveFileToUploadDir(photo);
+
+    photoUrl = await saveFileToCloudinary(photo);
+  }
+
   const contact = {
-    ...req.body,
+    name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    isFavorite: req.body.isFavorite,
+    contactType: req.body.contactType,
     userId: req.user.id,
+    photo: photoUrl,
   };
   const result = await createContact(contact);
 
@@ -67,6 +84,12 @@ export const createContactController = async (req, res) => {
 export const updateContactController = async (req, res) => {
   const { contactId } = req.params;
 
+  const photo = req.file;
+  let photoUrl;
+
+  if (photo) {
+    photoUrl = await saveFileToCloudinary(photo);
+  }
   const contact = {
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
@@ -74,6 +97,7 @@ export const updateContactController = async (req, res) => {
     isFavorite: req.body.isFavorite,
     contactType: req.body.contactType,
     userId: req.user.id,
+    photo: photoUrl,
   };
 
   const result = await updateContact(contactId, contact);
