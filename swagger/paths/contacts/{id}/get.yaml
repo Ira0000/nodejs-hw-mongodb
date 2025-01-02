@@ -1,4 +1,4 @@
-# swagger/paths/studens/{id}/get.yaml
+# swagger/paths/contacts/{id}/get.yaml
 tags:
   - Contacts
 summary: Get contact by id
@@ -7,15 +7,15 @@ description: 'Get contact by id'
 security:
   - bearerAuth: []
 parameters:
-  - in: :contactId
-    name: id
+  - in: path
+    name: :contactId
     required: true
     schema:
       type: string
       example: '675c18e78827cedae1f61afd'
 responses:
   '200':
-    description: 'Get contact by id'
+    description: Successfully  Get contact by id
     content:
       application/json:
         schema:
