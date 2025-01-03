@@ -57,5 +57,5 @@ export const updateContact = async (contactId, payload) => {
 };
 
 export const deleteContact = async (contactId) => {
-  return Contact.findByIdAndDelete(contactId); // findOneAndDelete({ _id: studentId })
+  return Contact.findByIdAndDelete(contactId);
 };

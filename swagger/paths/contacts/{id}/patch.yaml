@@ -2,12 +2,12 @@
 
 tags:
   - Contacts
-summary: Update contact
+summary: Update contact by id
 operationId: updateContact
 description: 'Find contact by id and update'
 security:
   - bearerAuth: []
-  parameters:
+parameters:
   - in: path
     name: :contactId
     required: true
@@ -71,7 +71,7 @@ responses:
               example: Successfully patched a contact!
             data:
               type: object
-              $ref: '../../components/schemas/contact.yaml'
+              $ref: ../../../components/schemas/contact.yaml
   '404':
     $ref: '../../../components/responses/404.yaml'
   '401':
