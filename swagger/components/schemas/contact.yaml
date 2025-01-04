@@ -5,9 +5,6 @@ required:
   - _id
   - name
   - phoneNumber
-  - email
-  - photo
-  - isFavourite
   - contactType
   - userId
 properties:
