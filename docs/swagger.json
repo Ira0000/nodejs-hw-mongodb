@@ -11,6 +11,9 @@
   },
   "servers": [
     {
+      "url": "https://nodejs-hw-mongodb-hw7-59uq.onrender.com"
+    },
+    {
       "url": "http://127.0.0.1:8080"
     }
   ],
@@ -195,9 +198,6 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "email",
-                  "photo",
-                  "isFavourite",
                   "contactType"
                 ],
                 "properties": {
@@ -229,11 +229,6 @@
                       "home",
                       "personal"
                     ]
-                  },
-                  "userId": {
-                    "description": "Contact's user id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -415,14 +410,6 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name",
-                  "phoneNumber",
-                  "email",
-                  "photo",
-                  "isFavourite",
-                  "contactType"
-                ],
                 "properties": {
                   "name": {
                     "description": "Contact's name",
@@ -901,9 +888,6 @@
           "_id",
           "name",
           "phoneNumber",
-          "email",
-          "photo",
-          "isFavourite",
           "contactType",
           "userId"
         ],
