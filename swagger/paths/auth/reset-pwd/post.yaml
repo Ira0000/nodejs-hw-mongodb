@@ -3,11 +3,11 @@ tags:
 summary: Reset password
 operationId: resetPassword
 description: 'Reset password according to info in payload'
-# security:
-#   - bearerAuth: []
+security:
+  - {}
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:

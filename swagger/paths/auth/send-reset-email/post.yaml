@@ -3,11 +3,11 @@ tags:
 summary: Send reset password email, when password forgotten
 operationId: requestResetEmail
 description: 'Send rest password email to email in payload'
-# security:
-#   - bearerAuth: []
+security:
+  - {}
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:

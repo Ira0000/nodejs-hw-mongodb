@@ -3,11 +3,11 @@ tags:
 summary: Login user
 operationId: loginUser
 description: 'Login user with payload'
-# security:
-# - bearerAuth: []
+security:
+  - {}
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:

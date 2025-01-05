@@ -500,9 +500,12 @@
         "summary": "Login user",
         "operationId": "loginUser",
         "description": "Login user with payload",
+        "security": [
+          {}
+        ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -662,9 +665,12 @@
         "summary": "Register user",
         "operationId": "registerUser",
         "description": "Register user with payload",
+        "security": [
+          {}
+        ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -740,9 +746,12 @@
         "summary": "Reset password",
         "operationId": "resetPassword",
         "description": "Reset password according to info in payload",
+        "security": [
+          {}
+        ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -811,9 +820,12 @@
         "summary": "Send reset password email, when password forgotten",
         "operationId": "requestResetEmail",
         "description": "Send rest password email to email in payload",
+        "security": [
+          {}
+        ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
